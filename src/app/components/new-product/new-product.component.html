@@ -1,0 +1,163 @@
+<div class="container">
+  <h2>Add New Products</h2>
+  <form (ngSubmit)="addProduct()" #productForm="ngForm" >
+    <!-- Name -->
+    <div class="form-group row my-3">
+      <label for="name" class="col-sm-2 col-form-label">Name</label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          placeholder="Insert product name"
+          name="name"
+          [(ngModel)]="product.name"
+          required
+          #name="ngModel"
+          [ngClass]="{'is-invalid':(name.touched || name.dirty)&&name.invalid, 'is-valid':name.valid}"
+        />
+        <span class="text-danger">
+          @if(name.invalid && name.touched) {
+              <span>Name is required.</span>
+          }
+        </span>
+      </div>
+    </div>
+
+    <!-- Price -->
+    <div class="form-group row my-3">
+      <label for="price" class="col-sm-2 col-form-label">Price</label>
+      <div class="col-sm-10">
+        <input
+          type="number"
+          class="form-control"
+          id="price"
+          placeholder="Enter price"
+          name="price"
+          [(ngModel)]="product.price"
+          required
+          min="0"
+          #price="ngModel"
+          [ngClass]="{'is-invalid':(price.touched || price.dirty)&&name.invalid, 'is-valid':price.valid}"
+        />
+        <span class="text-danger">
+          @if(price.invalid && price.touched) {
+              <span>Price is required and must be a positive number.</span>
+          }
+        </span>
+      </div>
+    </div>
+
+    <!-- Material -->
+    <div class="form-group row my-3">
+      <label for="material" class="col-sm-2 col-form-label">Material</label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          class="form-control"
+          id="material"
+          placeholder="Enter material"
+          name="material"
+          [(ngModel)]="product.Material"
+          required
+          #material="ngModel"
+          [ngClass]="{'is-invalid':(material.touched || material.dirty)&&material.invalid, 'is-valid':material.valid}"
+        />
+
+        <span class="text-danger">
+          @if(material.invalid && material.touched) {
+              <span>Material is required.</span>
+          }
+        </span>
+      </div>
+    </div>
+
+    <!-- Quantity -->
+    <div class="form-group row my-3">
+      <label for="quantity" class="col-sm-2 col-form-label">Quantity</label>
+      <div class="col-sm-10">
+        <input
+          type="number"
+          class="form-control"
+          id="quantity"
+          placeholder="Enter quantity"
+          name="quantity"
+          [(ngModel)]="product.quantity"
+          required
+          min="1"
+          #quantity="ngModel"
+          [ngClass]="{'is-invalid':(quantity.touched || quantity.dirty)&&quantity.invalid, 'is-valid':quantity.valid}"
+        />
+  
+        <span class="text-danger">
+          @if(quantity.invalid && quantity.touched) {
+              <span>Quantity is required and must be at least 1</span>
+          }
+        </span>
+      </div>
+    </div>
+
+    <!-- Category -->
+    <div class="form-group row my-3">
+      <label for="categoryID" class="col-sm-2 col-form-label">Category</label>
+      <div class="col-sm-10">
+        <select
+          id="category"
+          class="form-control form-select my-1"
+          name="categoryID"
+          [(ngModel)]="product.categoryID"
+          required
+          #categoryID="ngModel"
+          [ngClass]="{'is-invalid':(categoryID.touched || categoryID.dirty)&&categoryID.invalid, 'is-valid':categoryID.valid}"
+        >
+          <option value="0" disabled>Select Category Id</option>
+          <option value="1">Table</option>
+          <option value="2">Chair</option>
+          <option value="3">TV Unit</option>
+        </select>
+  
+        <span class="text-danger">
+          @if(categoryID.invalid && categoryID.touched) {
+              <span>Please select a category.</span>
+          }
+        </span>
+      </div>
+    </div>
+
+    <!-- Product Image URL -->
+    <div class="form-group row my-3">
+      <label for="PrdimgURL" class="col-sm-2 col-form-label">Product Image URL</label>
+      <div class="col-sm-10">
+        <input
+          type="url"
+          class="form-control"
+          id="PrdimgURL"
+          placeholder="Enter product image URL"
+          name="PrdimgURL"
+          [(ngModel)]="product.PrdimgURL"
+          required
+          #PrdimgURL="ngModel"
+          [ngClass]="{'is-invalid':(PrdimgURL.touched || PrdimgURL.dirty)&&PrdimgURL.invalid, 'is-valid':PrdimgURL.valid}"
+        />
+
+        <span class="text-danger">
+          @if(PrdimgURL.invalid && PrdimgURL.touched) {
+              <span>A valid URL is required.</span>
+          }
+        </span>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="form-group row my-3">
+      <div class="col-sm-10 offset-sm-2">
+        <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid">
+          Add
+        </button>
+      </div>
+    </div>
+
+
+  </form>
+</div>
+

@@ -1,0 +1,35 @@
+$background-color_1: rgba(180, 190, 203, 0.4);
+$link-active: #40BFFF;
+
+
+.navbar-brand {
+	background-image: url("/logo.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	width: 120px;
+	height: 40px;
+}
+.navbar-nav {
+	.nav-item {
+		&:hover {
+			background-color: $background-color_1;
+		}
+	}
+  .active{
+    color: $link-active ;
+  }
+}
+
+
+
+// .banner{
+//   position: absolute;
+//   width: 99vh;
+//   left: -208.48px;
+//   top: 165.27px;
+
+
+//   background: linear-gradient(180deg, #000000 -73.06%, rgba(0, 0, 0, 0) 100%), url(image.png);
+// border-radius: 5px;
+// }

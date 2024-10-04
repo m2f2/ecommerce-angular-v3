@@ -1,0 +1,61 @@
+<div class="row container m-auto">
+  @if(!isPurchased){
+  @for(product of ProductsById; track product.id){
+  <div class="container col-md-4 mt-5">
+    <div class="d-flex justify-content-between">
+      <button class="btn btn-danger d-flex justify-content-center align-items-center"
+        (click)="deleteProduct(product.id)">
+        <mat-icon>delete</mat-icon>
+        Delete
+      </button>
+      <button class="btn btn-warning d-flex justify-content-center align-items-center"
+        [routerLink]="['/admin/addProduct', product.id]" mat-button>
+        <mat-icon>edit</mat-icon>
+        Edit
+      </button>
+    </div>
+
+    <div class="card" appProductCard [shadowColor]="'blue'" [shadowSize]="15">
+      <img [src]="product.PrdimgURL" class="card-img-top" alt="Product Image">
+      <div class="card-body"
+        [ngStyle]="{'background-color': product.quantity === 1 ? 'yellow' : product.quantity === 0? 'red':'' }">
+        <h5 class="card-title">{{product.name}}</h5>
+        <p class="card-text">
+          @switch (product.quantity) {
+          @case (0) {
+          Out of Stock
+          }
+          @case (1) {
+          Last item available!
+          }
+          @case (2) {
+          Only two items left!
+          }
+          @default {
+          Product Quantity: {{product.quantity}}
+          }
+          }
+        </p>
+
+        <p class="card-text">Category ID: {{product.categoryID}}</p>
+        <p class="card-text"><small class="text-muted">Price: {{product.price | currency}}</small></p>
+        <p>Purchase Date: {{ currentDate | date: 'shortDate' }}</p>
+        @if(discount!='No Discount'){
+        <h5>We offer an explicit discount of: {{ discount }}</h5>
+        }
+        <div class="d-flex justify-content-between">
+          <button class="btn btn-primary" [disabled]="product.quantity==0" (click)="addToCart(product)">Add To Cart
+          </button>
+          <!-- <button class="btn btn-primary" [disabled]="product.quantity==0" (click)="togglePurchase()">Buy Now</button> -->
+          <button class="btn btn-primary" [disabled]="product.quantity==0" (click)="viewDetails(product.id)"> View
+            Details</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  }
+  }@else {
+  <p>Thanks for purchasing from our Store {{clientName}}</p>
+  }
+</div>

@@ -1,0 +1,45 @@
+<div class="row container-fluid">
+  <div class="col-md-2">
+    <app-side-menu></app-side-menu>
+  </div>
+  <div class="col-md-10">
+    <div class="container">
+      <!-- <div class="form-group has-success">
+        <label class="control-label" for="inputSuccess1">Filter by Category ID</label>
+        <input type="text" class="form-control" id="inputSuccess1" [(ngModel)]="filterPrice">
+      </div> -->
+      <p class="control-label" for="inputSuccess1">Filter by Category ID</p>
+      <select id="category" class="form-select my-1" [(ngModel)]="selectedID">
+        @for(category of categories; track category.categoryID){
+        <option [value]="category.categoryID">{{category.Name}}</option>
+        }
+      </select>
+    </div>
+    <!-- <app-products [filterValue]="filterPrice" (addNewProductEvent)="handleAddToCart($event)"></app-products> -->
+    <app-products [selectedValue]="selectedID" (addNewProductEvent)="handleAddToCart($event)"></app-products>
+  </div>
+  <!-- <p class="d-flex justify-content-center my-4">{{ '1234567812345667' | creditCardFormat }}</p> -->
+</div>
+
+<div class=" container mt-5">
+  <table class="table table-striped table-gray table-bordered  ">
+    <thead>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Count</th>
+      <th>total</th>
+    </thead>
+    <tbody>
+      @for (item of productsInCart; track item.id) {
+      <tr class="">
+        <td>{{item.name}}</td>
+        <td>{{item.price}}</td>
+        <td>{{item.count}}</td>
+        <td>{{item.price * item.count}}</td>
+      </tr>
+      }
+    </tbody>
+
+  </table>
+  <h3 class="text-center font-weight-bold text-uppercase">total price of all cart : {{totalPrice}}</h3>
+</div>

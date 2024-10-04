@@ -1,0 +1,94 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <!-- Full Name -->
+  <div class="form-group">
+    <label for="fullName">Full Name</label>
+    <input type="text" id="fullName" formControlName="fullName" class="form-control"
+           [class.is-invalid]="registerForm.controls['fullName'].invalid && registerForm.controls['fullName'].touched"
+           [class.is-valid]="registerForm.controls['fullName'].valid && registerForm.controls['fullName'].touched">
+    @if(registerForm.controls['fullName'].touched){
+        <div class="invalid-feedback">
+          {{
+            registerForm.controls['fullName'].errors?.['required']
+              ? 'Full Name is required.'
+              : registerForm.controls['fullName'].errors?.['minlength']
+              ? 'Full Name must be at least 5 characters.'
+              : ''
+          }}
+        </div>
+    }
+  </div>
+
+  <!-- Email -->
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" id="email" formControlName="email" class="form-control"
+           [class.is-invalid]="registerForm.controls['email'].invalid && registerForm.controls['email'].touched"
+           [class.is-valid]="registerForm.controls['email'].valid && registerForm.controls['email'].touched">
+    @if(registerForm.controls['email'].touched){
+      <div class="invalid-feedback">
+        {{
+          registerForm.controls['email'].errors?.['required']
+            ? 'Email is required.'
+            : registerForm.controls['email'].errors?.['email']
+            ? 'Invalid email format.'
+            : ''
+        }}
+      </div>
+    }
+  </div>
+
+  <!-- Mobile Numbers -->
+  <div formArrayName="mobileNumbers">
+    
+    @for(mobileCtrl of mobileNumbers.controls; track $index) {
+      <div class="form-group">
+        <label for="mobile">Mobile Number {{ $index + 1 }}</label>
+        <input
+          type="text"
+          id="mobile"
+          [formControlName]="$index | json"
+          class="form-control"
+          [class.is-invalid]="mobileCtrl.invalid && mobileCtrl.touched"
+          [class.is-valid]="mobileCtrl.valid && mobileCtrl.touched"
+        />
+        @if(mobileCtrl.touched) {
+          <div class="invalid-feedback">
+            {{
+              mobileCtrl.errors?.['required']
+                ? 'Mobile number is required.'
+                : mobileCtrl.errors?.['pattern']
+                  ? 'Invalid mobile number format.'
+                  : ''
+            }}
+          </div>
+        }
+
+        @if($index> 0) {
+          <button type="button" class="btn btn-danger" (click)="removeMobileNumber($index)">Remove</button>
+        }
+      </div>
+    }
+  </div>
+
+  <button type="button" class="btn btn-secondary mt-2" (click)="addMobileNumber()">Add another mobile</button>
+
+  <div class="form-group mt-3">
+    <label for="password">Password</label>
+    <input type="password" id="password" formControlName="password" class="form-control"
+           [class.is-invalid]="registerForm.controls['password'].invalid && registerForm.controls['password'].touched"
+           [class.is-valid]="registerForm.controls['password'].valid && registerForm.controls['password'].touched">
+    @if(registerForm.controls['password'].touched){
+      <div class="invalid-feedback">
+        {{
+          registerForm.controls['password'].errors?.['required']
+            ? 'Password is required.'
+            : registerForm.controls['password'].errors?.['minlength']
+              ? 'Password must be at least 6 characters.'
+              : ''
+        }}
+      </div>
+    }
+  </div>
+
+  <button type="submit" class="btn btn-primary mt-3" [disabled]="registerForm.invalid">Register</button>
+</form>
